@@ -54,11 +54,15 @@ class LoginCubit extends Cubit<LoginState> {
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waseem/component/id.dart';
 import 'package:waseem/data/repo/login_repo.dart';
 import 'package:waseem/shared/sharedComponent/constant.dart';
 
 import '../../Models/auth_model.dart';
 import '../../Models/speciality_model.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+import '../../shared/shared network/remote/api_constant.dart';
 
 part 'login_state.dart';
 
@@ -79,8 +83,13 @@ class LoginCubit extends Cubit<LoginState> {
         type: type,
         specialist: specialist,
       );
+      IO.Socket socket = IO.io(ApiConstant.base, <String, dynamic>{
+        'transports': ['websocket'],
+        'autoConnect': true,
+      });
       print("Login result: $result"); // طباعة الاستجابة
       final auth = Auth.fromJson(result);
+      socket.emit('join' , Id.id) ;
       emit(state.copyWith(status: RequestState.success, user: auth));
     } catch (e) {
       print('Login Error: $e'); // طباعة الأخطاء للتعامل معها
