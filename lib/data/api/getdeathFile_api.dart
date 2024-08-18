@@ -6,13 +6,13 @@ import '../../Models/getdeathfileModel.dart';
 class GetDeathFileApi{
   static  final String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsInVzZXJJRCI6MzAsInR5cGUiOiJvYmplY3QiLCJzcGVjaWFsaXN0IjoiZ2VuZXJhbCIsImlhdCI6MTcyMzQxNzcxMH0.hD082tBUXf7uiO8rfYeQzKVZnTRw0FK6MTfmV_gOFHY';
   static   final String baseUrl = 'http://192.168.43.74:3000/';
-
+//http://192.168.43.74:3000/api/information/deathFile/6
   static  Future<List<DeathFileModel>> fetchGetDeathFile() async {
     print("Sending request to API...");
     final response = await http.get(
       Uri.parse('${baseUrl}api/information/deathFile/6'),
       headers: {
-        'token': token,
+      //  'token': token,
         'Content-Type': 'application/json',
       },
     );

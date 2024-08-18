@@ -1,16 +1,16 @@
-import 'package:flutter/cupertino.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:waseem/cubit/login/login_cubit.dart';
-
-import 'package:waseem/shared/shared%20network/local/cache_helper.dart';
-import 'package:waseem/shared/shared%20network/local/cache_key.dart';
 import 'package:waseem/shared/shared%20style/assets.dart';
 import 'package:waseem/shared/shared%20style/colors.dart';
 import 'package:waseem/shared/sharedComponent/component.dart';
 
+import '../../../shared/shared network/local/cache_helper.dart';
+import '../../../shared/shared network/local/cache_key.dart';
 import '../floor/choose_floor_screen.dart';
 import 'determine_specialty_screen.dart';
 
@@ -19,7 +19,9 @@ class ChoseTypeScreen extends StatelessWidget {
     super.key,
     required this.password,
   });
+
   final String password;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -48,11 +50,7 @@ class ChoseTypeScreen extends StatelessWidget {
                     fontColor: AppColors.primary,
                     onPressed: () => navigateTo(
                       context,
-                      DetermineSpecialtyScreen(
-                        password: password,
-                       // specialist2: 6,
-
-                      ),
+                      DetermineSpecialtyScreen(password: password),
                     ),
                   ),
                 ),
@@ -65,15 +63,17 @@ class ChoseTypeScreen extends StatelessWidget {
                     }
                     if (state.status.isSuccess) {
                       CacheHelper.saveData(
-                              key: CacheKey.token, value: state.user!.token)
+                          key: CacheKey.token, value: state.user!.token)
                           .then(
-                        (value) {
+                            (value) {
                           navigateAndRemove(
                             context,
                             const ChooseFloorScreen(),
                           );
                         },
                       );
+                      print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa${CacheHelper.getData(key: CacheKey.token)}");
+
                     }
                   },
                   builder: (context, state) {
@@ -101,3 +101,4 @@ class ChoseTypeScreen extends StatelessWidget {
     );
   }
 }
+

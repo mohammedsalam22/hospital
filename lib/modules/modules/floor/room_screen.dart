@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waseem/shared/shared%20style/assets.dart';
 import 'package:waseem/shared/shared%20style/colors.dart';
 import 'package:waseem/shared/shared%20style/styles.dart';
@@ -92,7 +93,14 @@ class _RoomScreenState extends State<RoomScreen> {
                             DefaultButton(
                               text: "التحاليل الدورية",
                               width: double.infinity,
-                              onPressed: () {},
+                              onPressed: () {context.push('/ScreeingTestForm');},
+                            ),
+                            40.verticalSpace,
+
+                            DefaultButton(
+                              text: "عرض اختبارات المريض",
+                              width: double.infinity,
+                              onPressed: () {context.push('/GetPatientTestScreen');},
                             ),
                             40.verticalSpace,
                             DefaultButton(
@@ -100,18 +108,17 @@ class _RoomScreenState extends State<RoomScreen> {
                               width: double.infinity,
                               onPressed: () {},
                             ),
-                            //
                             40.verticalSpace,
                             DefaultButton(
                               text: "الصور الشعاعية",
                               width: double.infinity,
-                              onPressed: () {},
+                              onPressed: () {context.push('/getPatientRadioItem');},
                             ),
                             40.verticalSpace,
                             DefaultButton(
                               text: "طلب استشارة",
                               width: double.infinity,
-                              onPressed: () {},
+                              onPressed: () {context.push('/AddMedicalExamsPage');},
                             ),
                             40.verticalSpace,
                             DefaultButton(
@@ -123,7 +130,7 @@ class _RoomScreenState extends State<RoomScreen> {
                             DefaultButton(
                               text: "طلب صورة شعاعية",
                               width: double.infinity,
-                              onPressed: () {},
+                              onPressed: () {context.push('/addradiograph');},
                             ),
                             40.verticalSpace,
                             DefaultButton(
@@ -133,9 +140,11 @@ class _RoomScreenState extends State<RoomScreen> {
                             ),
                             40.verticalSpace,
                             DefaultButton(
+
+                              //DeathFileForm
                               text: "استمارة الوفاة",
                               width: double.infinity,
-                              onPressed: () {},
+                              onPressed: () {context.push('/DeathFileForm');},
                             ),
 
                             const Spacer(),

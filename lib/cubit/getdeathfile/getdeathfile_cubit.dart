@@ -11,8 +11,11 @@ class GetDeathFileCubit extends Cubit<GetDeathFileState> {
   void fetchGetDeathFile() async {
     try {
       emit(GetDeathFileLoading());
+
       // استدعاء الـ API لجلب البيانات
       final deathFileModel = await GetDeathFileApi.fetchGetDeathFile(); // هنا يجب أن تقوم بإنشاء الـ API الخاص بك
+      print(deathFileModel); // تأكد من وجود البيانات هنا
+
       emit(GetDeathFileSuccess(deathFileModel as List<DeathFileModel>));
     } catch (e) {
       emit(GetDeathFileError(e.toString()));

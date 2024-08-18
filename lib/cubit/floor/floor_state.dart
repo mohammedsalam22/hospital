@@ -17,6 +17,8 @@ class FloorState extends Equatable {
       );
   FloorState copyWith({
     final RequestState? status,
+
+    
     final List<Room>? rooms,
     final List<Floor>? floors,
   }) {

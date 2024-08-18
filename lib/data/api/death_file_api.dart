@@ -2,6 +2,17 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../../shared/shared network/local/cache_helper.dart';
+import '../../shared/shared network/local/cache_key.dart';
+
+/*
+static Future createDeathFile (int id) async {
+try {
+print("ssssssssssss") ;
+var response = await http.post(
+Uri.parse('${http://192.168.43.74:3000/api/information/deathFile/}'$id) ,
+*/
+
 class DeathFileApi {
   static Future createDeathFile () async {
     try {
@@ -10,7 +21,11 @@ class DeathFileApi {
         Uri.parse("http://192.168.43.74:3000/api/information/deathFile/6") ,
         headers: {
           'Content-Type': 'application/json',
+/*
           'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInVzZXJJRCI6MTQsInR5cGUiOiJvYmplY3QiLCJzcGVjaWFsaXN0IjoiZ2VuZXJhbCIsImlhdCI6MTcyMjYzMjY5NX0.wMmdr7kqxtTZSVFJfRa6FSAcULyTN4DqyJbJVT9UjTY",
+*/
+          'token': "${CacheHelper.getData(key: CacheKey.token)}",
+
         },
         body: json.encode({
           "deathFile" : {

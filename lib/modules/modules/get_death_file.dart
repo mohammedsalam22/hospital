@@ -10,6 +10,7 @@ class GetDeathFileItem extends StatelessWidget {
     return BlocBuilder<GetDeathFileCubit, GetDeathFileState>(
       builder: (context, state) {
         if (state is GetDeathFileLoading) {
+          print("vvvvvvvvvvvvvvvvvv");
           return Center(child: CircularProgressIndicator());
         } else if (state is GetDeathFileError) {
           return Center(

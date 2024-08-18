@@ -22,15 +22,10 @@ class PatientDischargeForm extends State<ScreeingTestForm> {
         backgroundColor: Color(0xFF41638E),
         title: Row(
           children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                // Action for back button
-              },
-            ),
-            Spacer(),
+
+
             Text(
-              'استمارة خروج المريض',
+              'طلب تحليل دوري',
               style: TextStyle(
                 fontFamily: 'Almarai',
                 fontSize: 18,

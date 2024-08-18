@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../../shared/shared network/local/cache_helper.dart';
+import '../../shared/shared network/local/cache_key.dart';
+
 class addradiographApi {
   static Future<String> createradiograph(
       String askRadiographs,
@@ -13,7 +16,7 @@ class addradiographApi {
         Uri.parse("http://192.168.43.74:3000/api/examinations/radiograph/5"),
         headers: {
           'Content-Type': 'application/json',
-          'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsInVzZXJJRCI6MjksInR5cGUiOiJvYmplY3QiLCJzcGVjaWFsaXN0IjoiZ2VuZXJhbCIsImlhdCI6MTcyMzIxMDA4OH0.8e__JOH9Kso23aLhs2gjUPkL5_XyZ3Xve5_RoWpx6x0",
+          'token':'${CacheHelper.getData(key: CacheKey.token)}'
 
         },
         body: jsonEncode({
