@@ -32,6 +32,9 @@ class DetermineSpecialtyScreen extends StatefulWidget {
 class _DetermineSpecialtyScreenState extends State<DetermineSpecialtyScreen> {
   final TextEditingController specialityController = TextEditingController();
 
+  bool _isDropdownOpen = true;
+
+  int i = 0 ;
 
   @override
   Widget build(BuildContext context) {
@@ -73,10 +76,62 @@ class _DetermineSpecialtyScreenState extends State<DetermineSpecialtyScreen> {
                                   ),
                                 ),
                                 33.verticalSpace,
-                                CustomDropdown(
-                                  speciality: state.speciality,
-                                  specialityController: specialityController,
-                                ),
+                                ButtonTheme(
+                                  alignedDropdown: true,
+                                  child: DropdownMenu<int>(
+                                    controller: specialityController,
+                                    dropdownMenuEntries: state.speciality
+                                        .map<DropdownMenuEntry<int>>(
+                                          (e) => DropdownMenuEntry(
+                                        style: const ButtonStyle(
+                                          backgroundColor: WidgetStatePropertyAll(
+                                            AppColors.white,
+                                          ),
+                                        ),
+                                        value: e.id,
+                                        label: e.name,
+                                        labelWidget: Text(
+                                          e.name,
+                                          style: AppStyle.labs(),
+                                        ),
+                                      ),
+                                    )
+                                        .toList(),
+                                    onSelected: (index) {
+                                      setState(() {
+                                        i = index! ;
+                                      });
+                                    },
+                                    enableSearch: false,
+                                    hintText: "تحديد الاختصاص",
+                                    textStyle: AppStyle.Small(),
+                                    inputDecorationTheme: InputDecorationTheme(
+                                      filled: true,
+                                      fillColor: AppColors.white,
+                                      enabledBorder: _isDropdownOpen
+                                          ? OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10.r),
+                                      )
+                                          : HideUnderlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10.r),
+                                      ),
+                                    ),
+                                    menuStyle: MenuStyle(
+                                      padding: const WidgetStatePropertyAll(EdgeInsets.zero),
+                                      elevation: const WidgetStatePropertyAll(0),
+                                      fixedSize: WidgetStatePropertyAll(
+                                        Size(100.w, 434.h),
+                                      ),
+                                      shape: const WidgetStatePropertyAll(
+                                        HideAbovelineBorder(),
+                                      ),
+                                    ),
+                                  ),
+                                ) ,
+                                // CustomDropdown(
+                                //   speciality: state.speciality,
+                                //   specialityController: specialityController,
+                                // ),
                               ],
                             ),
                             BlocConsumer<LoginCubit, LoginState>(
@@ -112,7 +167,7 @@ class _DetermineSpecialtyScreenState extends State<DetermineSpecialtyScreen> {
                                     LoginCubit.get(context).login(
                                       password: widget.password,
                                       type: "Doctor",
-                                      specialist: 6,
+                                      specialist: i,
                                     );
                                   },
                                 );
@@ -175,6 +230,9 @@ class CustomDropdownState extends State<CustomDropdown> {
               ),
             )
             .toList(),
+        onSelected: (i) {
+          print(i) ;
+        },
         enableSearch: false,
         hintText: "تحديد الاختصاص",
         textStyle: AppStyle.Small(),

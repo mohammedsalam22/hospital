@@ -19,6 +19,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController typeController = TextEditingController();
+  final TextEditingController spController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: passwordController,
                           hintText: "أدخل رمز PIN",
                         ),
+                        // 30.verticalSpace,
+                        // DefaultFormField(
+                        //   controller: typeController,
+                        //   hintText: "أدخل رمز type",
+                        // ),
+                        // 30.verticalSpace,
+                        // DefaultFormField(
+                        //   controller: spController,
+                        //   hintText: "أدخل رمز اختصاصك",
+                        // ),
                       ],
                     ),
                     DefaultButton(
@@ -64,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                     ),
-                    67.verticalSpace,
+                    200.verticalSpace,
                   ],
                 ),
               ),

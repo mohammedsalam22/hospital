@@ -62,7 +62,7 @@ class _FloorScreenState extends State<FloorScreen> {
             final room = widget.rooms[index];
             return Card(
               color:
-                  !room.isAvailable ? AppColors.online_2 : AppColors.offline_2,
+                  room.isAvailable ? AppColors.online_2 : AppColors.offline_2,
               clipBehavior: Clip.hardEdge,
               child: InkWell(
                 onTap: () => navigateTo(
@@ -78,7 +78,7 @@ class _FloorScreenState extends State<FloorScreen> {
                     5.verticalSpace,
                     SvgPicture.asset(
                       Assets.room,
-                      color: !room.isAvailable
+                      color: room.isAvailable
                           ? AppColors.online_1
                           : AppColors.offline_1,
                     ),
@@ -86,7 +86,7 @@ class _FloorScreenState extends State<FloorScreen> {
                     Text(
                       widget.rooms[index].roomNumber.toString(),
                       style: TextStyle(
-                        color: !room.isAvailable
+                        color:room.isAvailable
                             ? AppColors.online_1
                             : AppColors.offline_1,
                         fontSize: 32.sp,

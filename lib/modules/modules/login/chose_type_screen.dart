@@ -58,8 +58,6 @@ class ChoseTypeScreen extends StatelessWidget {
                 BlocConsumer<LoginCubit, LoginState>(
                   listener: (context, state) {
                     if (state.status.isError) {
-                      // TODO:
-                      //   Show Tost
                     }
                     if (state.status.isSuccess) {
                       CacheHelper.saveData(
