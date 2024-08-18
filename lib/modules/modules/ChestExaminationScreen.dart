@@ -23,6 +23,14 @@ class _ChestExaminationFormState extends State<ChestExaminationForm> {
   bool barrelChest = false;
   bool sternalPit = false;
 
+  // Dropdown options
+  final List<String> compressionsOptions = ['Silent', 'Hyperresonance'];
+  final List<String> respiratorySoundsOptions = ['Clear and Symmetrical', 'Wheezing', 'Fine Crackles'];
+
+  // State variables for dropdowns
+  String? selectedCompressions;
+  String? selectedRespiratorySounds;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,18 +45,55 @@ class _ChestExaminationFormState extends State<ChestExaminationForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text fields for chest examination data
-                Text('Compressions'),
-                TextFormField(
-                  controller: compressionsController,
-                  decoration: InputDecoration(labelText: 'Compressions'),
+                // Dropdown for Compressions
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    labelText: 'Compressions',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                  value: selectedCompressions,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedCompressions = value;
+                    });
+                  },
+                  items: compressionsOptions.map((String option) {
+                    return DropdownMenuItem<String>(
+                      value: option,
+                      child: Text(option),
+                    );
+                  }).toList(),
                 ),
                 SizedBox(height: 16),
 
-                Text('Respiratory Sounds'),
-                TextFormField(
-                  controller: respiratorySoundsController,
-                  decoration: InputDecoration(labelText: 'Respiratory Sounds'),
+                // Dropdown for Respiratory Sounds
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    labelText: 'Respiratory Sounds',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                  value: selectedRespiratorySounds,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedRespiratorySounds = value;
+                    });
+                  },
+                  items: respiratorySoundsOptions.map((String option) {
+                    return DropdownMenuItem<String>(
+                      value: option,
+                      child: Text(option),
+                    );
+                  }).toList(),
                 ),
                 SizedBox(height: 16),
 
@@ -117,8 +162,8 @@ class _ChestExaminationFormState extends State<ChestExaminationForm> {
                       onPressed: () async {
                         if (formKey.currentState?.validate() ?? false) {
                           await BlocProvider.of<ChestExaminationCubit>(context).createChestExamination(
-                            Compressions: compressionsController.text,
-                            respiratorySounds: respiratorySoundsController.text,
+                            Compressions: selectedCompressions,
+                            respiratorySounds: selectedRespiratorySounds,
                             sideRounded: sideRounded,
                             gynecomastia: gynecomastia,
                             orange_skinnedBreast: orangeSkinnedBreast,

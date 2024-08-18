@@ -17,10 +17,13 @@ import '../../cubit/getPAtientExam/getPAtientExam_cubit.dart';
 import '../../cubit/getPatientRadio/getPatientRadio_cubit.dart';
 import '../../cubit/getdeathfile/getdeathfile_cubit.dart';
 import '../../cubit/getsummarychage/getsummarychage_cubit.dart';
+import '../../cubit/getsummarychage/getsummarychage_cubit.dart';
+import '../../cubit/getsummarychage/getsummarychage_cubit.dart';
 import '../../cubit/head/head_Cubit.dart';
 import '../../cubit/login/login_cubit.dart';
 import '../../cubit/radiograph/radio_graph_cubit.dart';
 import '../../cubit/summaryCharge/summary_charge_cubit.dart';
+import '../../data/api/getdeathFile_api.dart';
 import '../../modules/modules/AddVisual.dart';
 import '../../modules/modules/ChestExaminationScreen.dart';
 import '../../modules/modules/Death_File.dart';
@@ -238,7 +241,21 @@ final appRouter = GoRouter(
             child: GetPatientTestScreen(),
           );
         }),
-
+    GoRoute(
+        path: '/getsummarychargeItem',
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => getsummarychargeCubit()..fetchgetsummarycharge(),
+            child: getsummarychargeItem(),
+          );
+        }), GoRoute(
+        path: '/GetDeathFileItem',
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => GetDeathFileCubit(),
+            child: GetDeathFileItem(),
+          );
+        }),
 
   ],
 );

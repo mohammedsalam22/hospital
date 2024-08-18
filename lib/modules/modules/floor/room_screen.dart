@@ -146,7 +146,21 @@ class _RoomScreenState extends State<RoomScreen> {
                               width: double.infinity,
                               onPressed: () {context.push('/DeathFileForm');},
                             ),
+                            40.verticalSpace,
+                            DefaultButton(
 
+                              //DeathFileForm
+                              text: "عرض استمارات الوفاة",
+                              width: double.infinity,
+                              onPressed: () {context.push('/GetDeathFileItem');},
+                            ), 40.verticalSpace,
+                            DefaultButton(
+
+                              //DeathFileForm
+                              text: "عرض استمارات التخريج",
+                              width: double.infinity,
+                              onPressed: () {context.push('/getsummarychargeItem');},
+                            ),
                             const Spacer(),
                           ],
                         ),

@@ -31,57 +31,41 @@ class MyApp extends StatelessWidget {
 }
 */
 
+
+
+
 /*
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-<<<<<<< HEAD
 
-import 'cubit/ButtonNurse/Button_Cubit.dart';
-=======
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:waseem/notify_sevices.dart';
-
-import 'package:waseem/shared/shared%20network/local/cache_helper.dart';
-import 'package:waseem/shared/shared%20network/local/cache_key.dart';
-import 'package:waseem/shared/shared%20network/remote/api_constant.dart';
-import 'package:waseem/shared/shared%20network/remote/dio_helper.dart';
->>>>>>> 44143e5b83f78a6e6d6c56cc0bade82fed07a145
-
-import 'cubit/postAddresult/postaddresult_cubit.dart';
-import 'modules/modules/Buttonnnnnnnnnn.dart';
-import 'modules/modules/postAddresultScreen.dart';
-
-<<<<<<< HEAD
+import 'cubit/ChestExamination/chestExamination_Cubit.dart';
+import 'cubit/add_neck_examination/add_neck_examination_Cubit.dart';
+import 'cubit/getnotresponsetest/getnotresponse_cubit.dart';
+import 'data/api/addNeckExam_api.dart';
+import 'modules/modules/ChestExaminationScreen.dart';
+import 'modules/modules/addNeckExamScreen.dart';
+import 'modules/modules/getnotresponseScreen.dart';
 
 void main() {
   runApp(MyApp());
 }
-=======
-import 'component/id.dart';
-import 'cubit/death/death_file_cubit.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'modules/modules/floor/floor_screen.dart';
-import 'modules/modules/login/login_screen.dart';
-import 'modules/modules/splash/splash_screen.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
->>>>>>> 44143e5b83f78a6e6d6c56cc0bade82fed07a145
+
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BlocProvider(
-        create: (context) => postAddresultCubit(),
-        child: postAddresultScreen(),
+        create: (context) => ChestExaminationCubit(),
+        child: ChestExaminationForm(),
       ),
     );
   }
 }
-
 */
+
+
 
 
 
@@ -152,6 +136,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }*/
+
 
 
 

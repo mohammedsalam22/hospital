@@ -6,8 +6,10 @@ import '../../cubit/add_neck_examination/add_neck_examination_State.dart';
 
 class AddNeckExamScreen extends StatelessWidget {
   // Enum dropdown options
-  final List<String> carotidArteryOptions = ['Normal', 'Absent', 'Weak'];
-  final List<String> jugularVeinOptions = ['Normal', 'Distended', 'Collapsed'];
+  //listening', 'testing')
+  //pulsation', 'distention')
+  final List<String> carotidArteryOptions = ['listening', 'testing'];
+  final List<String> jugularVeinOptions = ['pulsation', 'distention'];
 
   // Controllers for TextFields
   final TextEditingController lymphNodesController = TextEditingController();
