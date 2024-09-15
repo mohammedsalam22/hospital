@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:waseem/modules/modules/show_consult_view.dart';
+import 'package:waseem/modules/notification_view.dart';
 import 'package:waseem/shared/shared%20style/assets.dart';
 import 'package:waseem/shared/shared%20style/styles.dart';
 
@@ -36,8 +38,20 @@ class DefaultDrawer extends StatelessWidget {
                     'الاشعارات',
                     style: AppStyle.Bold(),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NotificationView())) ;
+                  },
                   leading: SvgPicture.asset(Assets.bell),
+                ),
+                ListTile(
+                  title: Text(
+                    'الاستشارات',
+                    style: AppStyle.Bold(),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ShowConsultView())) ;
+                  },
+                  leading: const Icon(Icons.file_copy_outlined),
                 ),
               ],
             ),

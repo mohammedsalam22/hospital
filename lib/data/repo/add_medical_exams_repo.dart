@@ -26,17 +26,28 @@ import '../api/summary_charge_api.dart';
 
 class addmedicalexamsRepo {
   static Future createaddmedicalexams(
-
-      String askExaminations,
-
-      ) async {
+    String askExaminations,
+  ) async {
     try {
       print("ddddd");
 
       var response = await addmedicalexamsApi.createaddmedicalexams(
         askExaminations,
+      );
+      return jsonDecode(response);
+    } catch (e) {
+      rethrow;
+    }
+  }
 
+  static Future createConsult(
+      String askExaminations,
+      ) async {
+    try {
+      print("ddddd");
 
+      var response = await addmedicalexamsApi.createConsult(
+        askExaminations,
       );
       return jsonDecode(response);
     } catch (e) {

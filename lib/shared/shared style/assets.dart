@@ -7,4 +7,6 @@ abstract class Assets {
   static const String home = "assets/images/home.svg";
   static const String bell = "assets/images/bell.svg";
   static const String menu = "assets/images/menu.svg";
+  static const String checkboxTrue = "assets/images/checkbox_true.svg";
+  static const String checkboxFasle = "assets/images/checkbox_fasle.svg";
 }

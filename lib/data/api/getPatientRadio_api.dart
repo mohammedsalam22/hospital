@@ -50,6 +50,8 @@ class RadiographService {
 // radiograph_api.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:waseem/component/patient_id.dart';
+import 'package:waseem/shared/shared%20network/remote/api_constant.dart';
 import '../../Models/getPatientRadioModel.dart';
 
 class GetpatientradioApi {
@@ -59,7 +61,7 @@ class GetpatientradioApi {
   static  Future<List<GetPatientRadio>> fetchRadiographs() async {
     print("Sending request to API...");
     final response = await http.get(
-      Uri.parse('${baseUrl}api/examinations/patient/radio/5'),
+      Uri.parse('${ApiConstant.baseUrl}/examinations/patient/radio/${PatientId.patientID}'),
       headers: {
         'token': token,
         'Content-Type': 'application/json',

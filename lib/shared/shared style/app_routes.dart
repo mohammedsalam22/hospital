@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:waseem/modules/consult_view.dart';
 
 import '../../cubit/AddMedicalExamsPage/add_medical_exams_cubit.dart';
 import '../../cubit/AddVisual/AddVisual_cubit.dart';
@@ -86,6 +87,13 @@ final appRouter = GoRouter(
       builder: (context, state) => BlocProvider(
         create: (context) => addmedicalexamsCubit(),
         child: AddMedicalExamsPage(),
+      ),
+    ),
+    GoRoute(
+      path: '/AddConsult',
+      builder: (context, state) => BlocProvider(
+        create: (context) => addmedicalexamsCubit(),
+        child: ConsultView(),
       ),
     ),
     GoRoute(

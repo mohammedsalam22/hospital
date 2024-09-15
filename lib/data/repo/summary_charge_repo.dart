@@ -32,6 +32,10 @@ class SummaryChargeRepo {
       String summaryStory,
       String finalSituation,
       String guidelines,
+      String guidelines1,
+      String guideline2,
+      String guideline3,
+      String guideline4,
 
       ) async {
     try {
@@ -44,7 +48,11 @@ class SummaryChargeRepo {
           entryReason,
           summaryStory,
           finalSituation,
-          guidelines// A
+          guidelines ,
+          guidelines1 ,
+          guideline2 ,
+          guideline3 ,
+          guideline4 ,
 
       );
       return jsonDecode(response);

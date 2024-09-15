@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:waseem/Models/getPatientRadioModel.dart';
+import 'package:waseem/shared/shared%20network/remote/api_constant.dart';
 
 import '../../Models/getPatientRadioModel.dart';
 import '../../Models/getPatientRadioModel.dart';
@@ -81,102 +82,111 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 class getPatientRadioItem extends StatelessWidget {
-  final String baseUrl = 'http://192.168.202.16:3000/';
+  final String baseUrl = ApiConstant.baseUrl;
   late final GetPatientRadio radiograph;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<getPatientRadioCubit, getPatientRadioState>(
-      builder: (context, state) {
-        if (state is getPatientRadioLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is getPatientRadioError) {
-          return Center(child: Text('حدث خطأ: ${state.error}', style: TextStyle(color: Colors.red)));
-        } else if (state is getPatientRadioSuccess) {
-          return ListView.builder(
-            itemCount: state.getPatientRadio.length,
-            itemBuilder: (context, index) {
-              final radiograph = state.getPatientRadio[index];
-              String? imageUrl = radiograph.image != null ? '${baseUrl}${radiograph.image}' : null;
-              String? documentUrl = radiograph.document != null ? '${baseUrl}${radiograph.document}' : null;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'جميع الصور الشعاعية للمريض'
+        ),
+      ),
+      body: BlocBuilder<getPatientRadioCubit, getPatientRadioState>(
+        builder: (context, state) {
+          if (state is getPatientRadioLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is getPatientRadioError) {
+            return Center(child: Text('حدث خطأ: ${state.error}', style: TextStyle(color: Colors.red)));
+          } else if (state is getPatientRadioSuccess) {
+            return ListView.builder(
+              itemCount: state.getPatientRadio.length,
+              itemBuilder: (context, index) {
+                final radiograph = state.getPatientRadio[index];
+                String? imageUrl = radiograph.image != null ? '${ApiConstant.base}/${radiograph.image}' : null;
+                String? documentUrl = radiograph.document != null ? '${ApiConstant.base}/${radiograph.document}' : null;
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 
-                  if (radiograph.askRadiographs != null)
-                    Padding(
-                      padding: const EdgeInsets.all( 8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                        color: Color(0xFF41638E), // لون الخلفية للحاوية
+                    if (radiograph.askRadiographs != null)
+                      Padding(
+                        padding: const EdgeInsets.all( 8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFF41638E), // لون الخلفية للحاوية
 
-                          borderRadius: BorderRadius.circular(15), // حواف دائرية بمقدار 20
+                            borderRadius: BorderRadius.circular(15), // حواف دائرية بمقدار 20
+                          ),
+                          padding: EdgeInsets.all(8.0), // إضافة حواف داخلية
+                          child: Center( // توسيط النص داخل الحاوية
+                            child: Text(
+                              'Ask Radiographs: ${radiograph.askRadiographs}',
+                              style: TextStyle(fontSize: 14, color: Colors.white,fontFamily: 'Poppins'), // حجم خط أصغر ولون نص أبيض
+                            ),
+                          ),
                         ),
-                        padding: EdgeInsets.all(8.0), // إضافة حواف داخلية
-                        child: Center( // توسيط النص داخل الحاوية
+                      ),
+                    SizedBox(height: 15), // مسافة بمقدار 15
+                    if (imageUrl != null)
+                      Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 2), // حواف ظاهرة
+                            borderRadius: BorderRadius.circular(8), // زوايا دائرية
+                          ),
+                          child: Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover, // ملائمة الصورة داخل الحاوية
+                            width: 300, // عرض الصورة بمقدار 20
+                            height: 300
+                            ,
+                          ),
+                        ),
+                      ),
+                    SizedBox(height: 15), // مسافة بمقدار 15
+                    Center(
+                      child: Text(
+                        'ملف المريض',
+                        style: TextStyle(fontSize: 16, fontFamily: 'Poppins',fontWeight: FontWeight.bold, color: Color(0xFF41638E)), // تنسيق النص
+                        textAlign: TextAlign.center, // توسيط النص
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    if (documentUrl != null)
+                      Center(
+                        child: InkWell(
+                          onTap: () async {
+                            final Uri url = Uri.parse(documentUrl);
+                            if (await canLaunch(url.toString())) {
+                              await launch(url.toString());
+                            } else {
+                              throw 'لا يمكن فتح الرابط: $url';
+                            }
+                          },
                           child: Text(
-                            'Ask Radiographs: ${radiograph.askRadiographs}',
-                            style: TextStyle(fontSize: 14, color: Colors.white,fontFamily: 'Poppins'), // حجم خط أصغر ولون نص أبيض
+                            radiograph.document!.split('/').last,
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFF41638E),
+                              decoration: TextDecoration.underline,
+                            ),
+                            textAlign: TextAlign.center, // توسيط النص
                           ),
                         ),
                       ),
-                    ),
-                  SizedBox(height: 15), // مسافة بمقدار 15
-                  if (imageUrl != null)
-                    Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 2), // حواف ظاهرة
-                          borderRadius: BorderRadius.circular(8), // زوايا دائرية
-                        ),
-                        child: Image.network(
-                          imageUrl,
-                          fit: BoxFit.cover, // ملائمة الصورة داخل الحاوية
-                          width: 300, // عرض الصورة بمقدار 20
-                          height: 300
-                          ,
-                        ),
-                      ),
-                    ),
-                  SizedBox(height: 15), // مسافة بمقدار 15
-                  Center(
-                    child: Text(
-                      'ملف المريض',
-                      style: TextStyle(fontSize: 16, fontFamily: 'Poppins',fontWeight: FontWeight.bold, color: Color(0xFF41638E)), // تنسيق النص
-                      textAlign: TextAlign.center, // توسيط النص
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  if (documentUrl != null)
-                    Center(
-                      child: InkWell(
-                        onTap: () async {
-                          final Uri url = Uri.parse(documentUrl);
-                          if (await canLaunch(url.toString())) {
-                            await launch(url.toString());
-                          } else {
-                            throw 'لا يمكن فتح الرابط: $url';
-                          }
-                        },
-                        child: Text(
-                          radiograph.document!.split('/').last,
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFF41638E),
-                            decoration: TextDecoration.underline,
-                          ),
-                          textAlign: TextAlign.center, // توسيط النص
-                        ),
-                      ),
-                    ),
-                ],
-              );
-            },
-          );
-        }
-        return Center(child: Text('لا توجد بيانات.'));
-      },
+                  ],
+                );
+              },
+            );
+          }
+          return Center(child: Text('لا توجد بيانات.'));
+        },
+      ),
     );
   }
 }
+
+

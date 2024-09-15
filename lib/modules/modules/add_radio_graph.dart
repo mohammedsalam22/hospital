@@ -68,7 +68,7 @@ class addradiograph extends StatelessWidget {
             Expanded(
               child: TextField(
                 controller: askRadiographs,
-
+                style: TextStyle(color: Colors.black),
                 maxLines: null,
                 decoration: InputDecoration(
                   filled: true,
@@ -82,7 +82,12 @@ class addradiograph extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            BlocBuilder<addradiographCubit, addradiographState>(
+            BlocConsumer<addradiographCubit, addradiographState>(
+              listener: (context, state) {
+                if (state.status == addradiographStatus.success) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('done successfully'))) ;
+                }
+              },
               builder: (context, state) {
                 return ElevatedButton(
                   style: ElevatedButton.styleFrom(

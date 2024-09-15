@@ -12,7 +12,7 @@ class getsummarychargeError extends getsummarychargeState {
 class getsummarychargeCubit extends Cubit<getsummarychargeState> {
   getsummarychargeCubit() : super(getsummarychargeInitial());
 
-  void fetchgetsummarycharge() async {
+  Future fetchgetsummarycharge() async {
     try {
       emit(getsummarychargeLoading());
       final getsummarycharges = await GetSummaryDischargeApi.fetchSummary();

@@ -16,6 +16,7 @@ class getPatientRadioCubit extends Cubit<getPatientRadioState> {
     try {
       emit(getPatientRadioLoading());
       final radiographs = await GetpatientradioApi.fetchRadiographs();
+      print(radiographs) ;
       emit(getPatientRadioSuccess(radiographs));
     } catch (e) {
       emit(getPatientRadioError(e.toString()));

@@ -8,47 +8,68 @@ import '../../cubit/getPAtientExam/getPAtientExam_cubit.dart';
 import '../../cubit/getPAtientExam/getPAtientExam_state.dart';
 
 
-class getPatientExamScreen extends StatelessWidget {
+class getPatientExamScreen extends StatefulWidget {
+  @override
+  State<getPatientExamScreen> createState() => _getPatientExamScreenState();
+}
+
+class _getPatientExamScreenState extends State<getPatientExamScreen> {
   final String baseUrl = 'http://192.168.202.16:3000/';
+
   late final Examinations getPatientExam;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<getPAtientExamCubit, getPAtientExamState>(
-      builder: (context, state) {
-        if (state is getPAtientExamLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is getPAtientExamError) {
-          return Center(child: Text('حدث خطأ: ${state.error}', style: TextStyle(color: Colors.red)));
-        } else if (state is getPAtientExamSuccess) {
-          return ListView.builder(
-            itemCount: state.getpatientexam.length,
-            itemBuilder: (context, index) {
-              final Getpatientexam = state.getpatientexam[index];
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await BlocProvider.of<getPAtientExamCubit>(context).fetchgetPAtientExam();
+    });
+    super.initState();
+  }
 
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildInfoCard('doctorID: ${Getpatientexam.doctorID }'),
-                    _buildInfoCard('patientID: ${Getpatientexam.patientID }'),
-                    _buildInfoCard('askExaminations: ${Getpatientexam.askExaminations }'),
-                    _buildInfoCard('response: ${Getpatientexam.response ?? 'null'}'),
-                    Divider(
-                      color: Colors.grey,       // لون الخط
-                      thickness: 2.0,           // تحديد سماكة الخط (يمكنك تغيير القيمة لتناسب احتياجاتك)
-                      indent: 16.0,             // مسافة من الجانب الأيسر (يمكنك تغيير القيمة لتتناسب مع التصميم)
-                      endIndent: 16.0,          // مسافة من الجانب الأيمن (يمكنك تغيير القيمة لتتناسب مع التصميم)
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        }
-        return Container(); // Return an empty container for any other state
-      },
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'التحاليل المخبرية'
+        ),
+      ),
+      body: BlocBuilder<getPAtientExamCubit, getPAtientExamState>(
+        builder: (context, state) {
+          if (state is getPAtientExamLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is getPAtientExamError) {
+            return Center(child: Text('حدث خطأ: ${state.error}', style: TextStyle(color: Colors.red)));
+          } else if (state is getPAtientExamSuccess) {
+            return ListView.builder(
+              itemCount: state.getpatientexam.length,
+              itemBuilder: (context, index) {
+                final Getpatientexam = state.getpatientexam[index];
+
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildInfoCard('doctorID: ${Getpatientexam.doctorID }'),
+                      _buildInfoCard('patientID: ${Getpatientexam.patientID }'),
+                      _buildInfoCard('askExaminations: ${Getpatientexam.askExaminations }'),
+                      _buildInfoCard('response: ${Getpatientexam.response ?? 'null'}'),
+                      Divider(
+                        color: Colors.grey,       // لون الخط
+                        thickness: 2.0,           // تحديد سماكة الخط (يمكنك تغيير القيمة لتناسب احتياجاتك)
+                        indent: 16.0,             // مسافة من الجانب الأيسر (يمكنك تغيير القيمة لتتناسب مع التصميم)
+                        endIndent: 16.0,          // مسافة من الجانب الأيمن (يمكنك تغيير القيمة لتتناسب مع التصميم)
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+          return Container(); // Return an empty container for any other state
+        },
+      ),
     );
   }
 

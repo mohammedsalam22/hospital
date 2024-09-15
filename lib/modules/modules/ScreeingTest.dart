@@ -45,7 +45,12 @@ class PatientDischargeForm extends State<ScreeingTestForm> {
 
 
 
-            BlocBuilder<ScreeingTestCubit, ScreeingTestState>(
+            BlocConsumer<ScreeingTestCubit, ScreeingTestState>(
+              listener: (context, state) {
+                if (state.status == ScreeingTestStatus.success) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('done successfully')));
+                }
+              },
               builder: (context, state) {
                 return ElevatedButton(
                   onPressed: () async {
@@ -80,6 +85,7 @@ class PatientDischargeForm extends State<ScreeingTestForm> {
         Container(
           color: Colors.white,
           child: TextField(
+            style: TextStyle(color: Colors.black),
             textAlign: TextAlign.right,
             controller: controller,
             decoration: InputDecoration(

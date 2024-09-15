@@ -61,7 +61,7 @@ class ChooseFloorScreen extends StatelessWidget {
                                           .firstWhere(
                                             (element) => element.floorID == 2,
                                           )
-                                          .rooms,
+                                          .rooms, id: 2,
                                     ),
                                   );
                                 },
@@ -78,7 +78,7 @@ class ChooseFloorScreen extends StatelessWidget {
                                         .firstWhere(
                                           (element) => element.floorID == 3,
                                         )
-                                        .rooms,
+                                        .rooms, id: 3,
                                   ),
                                 ),
                               ),
@@ -94,7 +94,7 @@ class ChooseFloorScreen extends StatelessWidget {
                                         .firstWhere(
                                           (element) => element.floorID == 4,
                                         )
-                                        .rooms,
+                                        .rooms, id: 4,
                                   ),
                                 ),
                               ),
@@ -110,7 +110,7 @@ class ChooseFloorScreen extends StatelessWidget {
                                         .firstWhere(
                                           (element) => element.floorID == 5,
                                         )
-                                        .rooms,
+                                        .rooms, id: 5,
                                   ),
                                 ),
                               ),
@@ -126,6 +126,23 @@ class ChooseFloorScreen extends StatelessWidget {
                                         .firstWhere(
                                           (element) => element.floorID == 6,
                                         )
+                                        .rooms, id: 6,
+                                  ),
+                                ),
+                              ),
+                              46.verticalSpace,
+                              DefaultButton(
+                                text: "الطابق السابع",
+                                width: double.infinity,
+                                onPressed: () => navigateTo(
+                                  context,
+                                  FloorScreen(
+                                    title: "الطابق السابع",
+                                    id: 7,
+                                    rooms: state.floors
+                                        .firstWhere(
+                                          (element) => element.floorID == 7,
+                                    )
                                         .rooms,
                                   ),
                                 ),

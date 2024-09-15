@@ -33,24 +33,28 @@ import '../../data/repo/death_file_repo.dart';
 import '../../data/repo/summary_charge_repo.dart';
 import 'add_medical_exams_states.dart';
 
-
-
 class addmedicalexamsCubit extends Cubit<addmedicalexamsState> {
   addmedicalexamsCubit() : super(addmedicalexamsState.initial());
 
-  Future createaddmedicalexams(
-
-      String askExaminations,
-
-
-      ) async {
+  Future createaddmedicalexams(String askExaminations,) async {
     emit(state.copyWith(status: addmedicalexamsStatus.loading));
     try {
       print("eeeeeeeeeeeeeeeeeeee");
       await addmedicalexamsRepo.createaddmedicalexams(
-
         askExaminations,
+      );
+      emit(state.copyWith(status: addmedicalexamsStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: addmedicalexamsStatus.error));
+    }
+  }
 
+  Future createConsult(String askExaminations,) async {
+    emit(state.copyWith(status: addmedicalexamsStatus.loading));
+    try {
+      print("eeeeeeeeeeeeeeeeeeee");
+      await addmedicalexamsRepo.createConsult(
+        askExaminations,
       );
       emit(state.copyWith(status: addmedicalexamsStatus.success));
     } catch (e) {
@@ -58,4 +62,3 @@ class addmedicalexamsCubit extends Cubit<addmedicalexamsState> {
     }
   }
 }
-

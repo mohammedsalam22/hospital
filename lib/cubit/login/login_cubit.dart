@@ -62,6 +62,7 @@ import '../../Models/auth_model.dart';
 import '../../Models/speciality_model.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import '../../component/token.dart';
 import '../../shared/shared network/remote/api_constant.dart';
 
 part 'login_state.dart';
@@ -81,18 +82,23 @@ class LoginCubit extends Cubit<LoginState> {
       final result = await LoginRepo.login(
         password: password,
         type: type,
-        specialist: specialist,
+        specialist: specialist??0,
       );
+      print('s') ;
       IO.Socket socket = IO.io(ApiConstant.base, <String, dynamic>{
         'transports': ['websocket'],
         'autoConnect': true,
       });
+      Id.id = result['user']['id'] ;
+      Token.token = result['token'] ;
+      Token.type = type ;
       print("Login result: $result"); // طباعة الاستجابة
-      final auth = Auth.fromJson(result);
+      // final auth = Auth.fromJson(result);
       socket.emit('join' , Id.id) ;
-      emit(state.copyWith(status: RequestState.success, user: auth));
+      print('ss') ;
+      emit(state.copyWith(status: RequestState.success));
     } catch (e) {
-      print('Login Error: $e'); // طباعة الأخطاء للتعامل معها
+      print('Login Error: $e');
       emit(state.copyWith(status: RequestState.error));
     }
   }

@@ -23,20 +23,49 @@ class SummaryChargeRepo {
 import 'dart:convert';
 import '../api/add_radio_graph_api.dart';
 
-
 class addradiographRepo {
   static Future createaddradiograph(
-
-      String askRadiographs,
-
-      ) async {
+    String askRadiographs,
+  ) async {
     try {
       print("ddddd");
 
       var response = await addradiographApi.createradiograph(
         askRadiographs,
+      );
+      return jsonDecode(response);
+    } catch (e) {
+      rethrow;
+    }
+  }
 
+  static Future cc(
+      String askRadiographs,
+      int id,
+      ) async {
+    try {
+      print("ddddd");
 
+      var response = await addradiographApi.cc(
+        askRadiographs,
+        id
+      );
+      return jsonDecode(response);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future cc2(
+      String askRadiographs,
+      int id,
+      ) async {
+    try {
+      print("ddddd");
+
+      var response = await addradiographApi.cc2(
+        askRadiographs,
+        id
       );
       return jsonDecode(response);
     } catch (e) {

@@ -66,7 +66,9 @@ class AddMedicalExamsPage extends StatelessWidget {
             Expanded(
               child: TextField(
                 controller: askExaminations,
-
+                style: const TextStyle(
+                  color: Colors.black
+                ) ,
                 maxLines: null,
                 decoration: InputDecoration(
                   filled: true,
@@ -80,7 +82,12 @@ class AddMedicalExamsPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            BlocBuilder<addmedicalexamsCubit, addmedicalexamsState>(
+            BlocConsumer<addmedicalexamsCubit, addmedicalexamsState>(
+              listener: (context, state) {
+                if (state.status == addmedicalexamsStatus.success) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('done successfully'))) ;
+                }
+              },
               builder: (context, state) {
                 return ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -95,14 +102,12 @@ class AddMedicalExamsPage extends StatelessWidget {
                     if (text.isEmpty) {
                       // يمكنك عرض رسالة خطأ للمستخدم هنا
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('يرجى إدخال نص في مربع النص')),
+                        const SnackBar(content: Text('يرجى إدخال نص في مربع النص')),
                       );
                       return;
                     }
                     await BlocProvider.of<addmedicalexamsCubit>(context).createaddmedicalexams(
                         askExaminations.text,
-
-
                     );
                   },
                   child: const Text('إرسال',

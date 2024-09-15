@@ -22,4 +22,40 @@ class FloorApi {
       rethrow;
     }
   }
+
+  static Future<String> getRoom(int id) async {
+    try {
+      var response = await http.get(
+        Uri.parse('${ApiConstant.baseUrl}/nonSpecialists/rooms/$id'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception('an Error Occurred');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<String> getPatientByRoom(int roomId) async {
+    try {
+      var response = await http.get(
+        Uri.parse(ApiConstant.getPatientByRoom(roomId)),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception('an Error Occurred');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

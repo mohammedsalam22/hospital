@@ -125,9 +125,7 @@ class SummaryChargeForm extends StatefulWidget {
 }
 
 class PatientDischargeForm extends State<SummaryChargeForm> {
-
-
- /* specialistDoctor,
+  /* specialistDoctor,
   inChargeDoctor, // Add this line
   finall,
   entryReason,
@@ -139,6 +137,10 @@ class PatientDischargeForm extends State<SummaryChargeForm> {
   final TextEditingController entryReason = TextEditingController();
   final TextEditingController finalSituation = TextEditingController();
   final TextEditingController guidelines = TextEditingController();
+  final TextEditingController guidelines1 = TextEditingController();
+  final TextEditingController guidelines2 = TextEditingController();
+  final TextEditingController guidelines3 = TextEditingController();
+  final TextEditingController guidelines4 = TextEditingController();
   final TextEditingController summaryStory = TextEditingController();
 
   @override
@@ -146,15 +148,8 @@ class PatientDischargeForm extends State<SummaryChargeForm> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF41638E),
-        title: Row(
+        title: const Row(
           children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                // Action for back button
-              },
-            ),
-            Spacer(),
             Text(
               'استمارة خروج المريض',
               style: TextStyle(
@@ -169,53 +164,75 @@ class PatientDischargeForm extends State<SummaryChargeForm> {
       body: Container(
         color: Color(0xFFF1F8FF),
         padding: EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            buildTextFieldGroup('القسم', specialistDoctor),
-            SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(child: buildTextFieldGroup('تاريخ الدخول', inChargeDoctor)),
-                SizedBox(width: 25),
-                Expanded(child: buildTextFieldGroup('تاريخ الخروج', finall)),
-              ],
-            ),
-            SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(child: buildTextFieldGroup('الطبيب الاختصاصي', entryReason)),
-                SizedBox(width: 25),
-                Expanded(child: buildTextFieldGroup('الطبيب المقيم', finalSituation)),
-              ],
-            ),
-            SizedBox(height: 24),
-            buildTextFieldGroup('التشخيص النهائي', summaryStory),
-            SizedBox(height: 24),
-
-
-            buildTextFieldGroup('التشخيص النهائي', guidelines),
-
-
-            BlocBuilder<summaryChargeCubit, summaryChargeState>(
-              builder: (context, state) {
-                return ElevatedButton(
-                  onPressed: () async {
-                    await BlocProvider.of<summaryChargeCubit>(context).createsummaryCharge(
-                        specialistDoctor.text,
-                        inChargeDoctor.text, // Add this line
-                        finall.text,
-                        entryReason.text,
-                        summaryStory.text,
-                        finalSituation.text,
-                        guidelines.text// A
-
-                    );
-                  },
-                  child: const Text('Submit'),
-                );
-              },
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              buildTextFieldGroup('القسم', specialistDoctor),
+              SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                      child:
+                          buildTextFieldGroup('تاريخ الدخول', inChargeDoctor)),
+                  SizedBox(width: 25),
+                  Expanded(child: buildTextFieldGroup('تاريخ الخروج', finall)),
+                ],
+              ),
+              SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                      child:
+                          buildTextFieldGroup('الطبيب الاختصاصي', entryReason)),
+                  SizedBox(width: 25),
+                  Expanded(
+                      child:
+                          buildTextFieldGroup('الطبيب المقيم', finalSituation)),
+                ],
+              ),
+              SizedBox(height: 24),
+              buildTextFieldGroup('الاختبارات', guidelines1),
+              SizedBox(height: 24),
+              buildTextFieldGroup('التبعيات', guidelines2),
+              SizedBox(height: 24),
+              buildTextFieldGroup('الاعمال الجراحية', guidelines3),
+              SizedBox(height: 24),
+              buildTextFieldGroup('العناية', guidelines4),
+              SizedBox(height: 24),
+              buildTextFieldGroup('التشخيص النهائي', summaryStory),
+              SizedBox(height: 24),
+              buildTextFieldGroup('القواعد الازمة', guidelines),
+              BlocConsumer<summaryChargeCubit, summaryChargeState>(
+                listener: (context, state) {
+                  if (state.status == summaryChargeStatus.success) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('done successfully')));
+                  }
+                },
+                builder: (context, state) {
+                  return ElevatedButton(
+                    onPressed: () async {
+                      await BlocProvider.of<summaryChargeCubit>(context)
+                          .createsummaryCharge(
+                              specialistDoctor.text,
+                              inChargeDoctor.text,
+                              finall.text,
+                              entryReason.text,
+                              summaryStory.text,
+                              finalSituation.text,
+                              guidelines.text ,
+                              guidelines1.text ,
+                              guidelines2.text ,
+                              guidelines3.text ,
+                              guidelines4.text,
+                              );
+                    },
+                    child: const Text('Submit'),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -237,6 +254,7 @@ class PatientDischargeForm extends State<SummaryChargeForm> {
         Container(
           color: Colors.white,
           child: TextField(
+            style: TextStyle(color: Colors.black),
             textAlign: TextAlign.right,
             controller: controller,
             decoration: InputDecoration(
@@ -252,4 +270,3 @@ class PatientDischargeForm extends State<SummaryChargeForm> {
     );
   }
 }
-

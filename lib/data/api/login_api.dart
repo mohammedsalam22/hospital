@@ -151,7 +151,7 @@ class LoginApi {
         "type": type,
       };
       if (specialist != null) {
-        body["specialist"] = specialist;
+        body["specialist"] = specialist ?? 0;
       }
 
       print('Sending request with body: ${json.encode(body)}');

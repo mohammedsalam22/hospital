@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:waseem/component/patient_id.dart';
+import 'package:waseem/shared/shared%20network/remote/api_constant.dart';
 
 import '../../Models/getdeathfileModel.dart';
 //http://192.168.43.74:3000/api/information/deathFile/6
@@ -10,7 +12,7 @@ class GetDeathFileApi{
   static  Future<List<DeathFileModel>> fetchGetDeathFile() async {
     print("Sending request to API...");
     final response = await http.get(
-      Uri.parse('${baseUrl}api/information/deathFile/6'),
+      Uri.parse('${ApiConstant.baseUrl}/information/deathFile/${PatientId.patientID}'),
       headers: {
       //  'token': token,
         'Content-Type': 'application/json',

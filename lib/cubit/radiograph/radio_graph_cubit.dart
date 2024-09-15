@@ -29,25 +29,57 @@ import 'package:equatable/equatable.dart';
 import 'package:waseem/cubit/radiograph/radio_graph_state.dart';
 import '../../data/repo/add_radio_graph_repo.dart';
 
-
-
 class addradiographCubit extends Cubit<addradiographState> {
   addradiographCubit() : super(addradiographState.initial());
 
   Future createradiograph(
-
-      String askRadiographs,
-
-
-      ) async {
+    String askRadiographs,
+  ) async {
     emit(state.copyWith(status: addradiographStatus.loading));
     try {
       print("eeeeeeeeeeeeeeeeeeee");
       await addradiographRepo.createaddradiograph(
-
         askRadiographs,
+      );
+      print("vvvvvvvvvvvvvvvvvvvvvv");
+      ;
+      emit(state.copyWith(status: addradiographStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: addradiographStatus.error));
+    }
+  }
 
-      )   ;    print("vvvvvvvvvvvvvvvvvvvvvv");
+  Future cc(
+      String askRadiographs,
+      int id
+      ) async {
+    emit(state.copyWith(status: addradiographStatus.loading));
+    try {
+      print("eeeeeeeeeeeeeeeeeeee");
+      await addradiographRepo.cc(
+        askRadiographs,
+        id
+      );
+      print("vvvvvvvvvvvvvvvvvvvvvv");
+      ;
+      emit(state.copyWith(status: addradiographStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: addradiographStatus.error));
+    }
+  }
+
+  Future cc2(
+      String askRadiographs,
+      int id,
+      ) async {
+    emit(state.copyWith(status: addradiographStatus.loading));
+    try {
+      print("eeeeeeeeeeeeeeeeeeee");
+      await addradiographRepo.cc2(
+        askRadiographs,
+        id
+      );
+      print("vvvvvvvvvvvvvvvvvvvvvv");
       ;
       emit(state.copyWith(status: addradiographStatus.success));
     } catch (e) {
@@ -55,4 +87,3 @@ class addradiographCubit extends Cubit<addradiographState> {
     }
   }
 }
-

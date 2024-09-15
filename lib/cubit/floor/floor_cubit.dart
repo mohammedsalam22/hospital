@@ -12,6 +12,8 @@ class FloorCubit extends Cubit<FloorState> {
 
   static FloorCubit get(context) => BlocProvider.of(context);
 
+  var room ;
+
   Future getFloors() async {
     emit(state.copyWith(status: RequestState.loading));
     try {
@@ -39,6 +41,21 @@ class FloorCubit extends Cubit<FloorState> {
           status: RequestState.success,
           rooms: rooms,
           floors: floors,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(status: RequestState.error));
+    }
+  }
+
+  Future getRoom( int floorID) async {
+    emit(state.copyWith(status: RequestState.loading));
+    try {
+      print("ddddd");
+      room =await FloorRepo.getRoom(floorID) ;
+      emit(
+        state.copyWith(
+          status: RequestState.success,
         ),
       );
     } catch (e) {

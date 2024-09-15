@@ -60,16 +60,20 @@ class ChoseTypeScreen extends StatelessWidget {
                     if (state.status.isError) {
                     }
                     if (state.status.isSuccess) {
-                      CacheHelper.saveData(
-                          key: CacheKey.token, value: state.user!.token)
-                          .then(
-                            (value) {
+                      // CacheHelper.saveData(
+                      //     key: CacheKey.token, value: state.user!.token)
+                      //     .then(
+                      //       (value) {
+                      //     navigateAndRemove(
+                      //       context,
+                      //       const ChooseFloorScreen(),
+                      //     );
+                      //   },
+                      // );
                           navigateAndRemove(
                             context,
                             const ChooseFloorScreen(),
                           );
-                        },
-                      );
                       print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa${CacheHelper.getData(key: CacheKey.token)}");
 
                     }

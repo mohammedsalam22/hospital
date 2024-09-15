@@ -50,6 +50,8 @@ class RadiographService {
 // radiograph_api.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:waseem/component/patient_id.dart';
+import 'package:waseem/shared/shared%20network/remote/api_constant.dart';
 import '../../Models/getPatientRadioModel.dart';
 import '../../Models/getsummarychagemodel.dart';
 
@@ -61,13 +63,12 @@ class GetSummaryDischargeApi {
   static Future<List<SummaryDischarge>> fetchSummary() async {
     print("Sending request to API...");
     final response = await http.get(
-      Uri.parse('${baseUrl}api/information/summaryCharge/1'),
+      Uri.parse('${ApiConstant.baseUrl}/information/summaryCharge/${PatientId.patientID}'),
       headers: {
       //  'token': token,
         'Content-Type': 'application/json',
       },
     );
-    print("Received response with status code: ${response.statusCode}");
 
     if (response.statusCode == 200) {
       print("donnnnnnnnnnne") ;

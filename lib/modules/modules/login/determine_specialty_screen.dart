@@ -141,16 +141,9 @@ class _DetermineSpecialtyScreenState extends State<DetermineSpecialtyScreen> {
                                   //   Show Tost
                                 }
                                 if (state.status.isSuccess) {
-                                  CacheHelper.saveData(
-                                          key: CacheKey.token,
-                                          value: state.user!.token)
-                                      .then(
-                                    (value) {
-                                      navigateAndRemove(
-                                        context,
-                                        const ChooseFloorScreen(),
-                                      );
-                                    },
+                                  navigateAndRemove(
+                                    context,
+                                    const ChooseFloorScreen(),
                                   );
                                 }
                               },

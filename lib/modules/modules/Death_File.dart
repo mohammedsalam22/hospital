@@ -92,30 +92,16 @@ class _DeathFileFormState extends State<DeathFileForm> {
                   },
                   child: AbsorbPointer(
                     child: TextField(
+                      style: const TextStyle(color: Colors.black),
                       controller: deathDateController,
                       decoration: InputDecoration(labelText: 'Death Date'),
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    final TimeOfDay? pickedTime = await showTimePicker(
-                      context: context,
-                      initialTime: deathHour ?? TimeOfDay.now(),
-                    );
-                    if (pickedTime != null && pickedTime != deathHour) {
-                      setState(() {
-                        deathHour = pickedTime;
-                        deathHourController.text = deathHour!.format(context);
-                      });
-                    }
-                  },
-                  child: AbsorbPointer(
-                    child: TextField(
-                      controller: deathHourController,
-                      decoration: InputDecoration(labelText: 'Death Hour'),
-                    ),
-                  ),
+                TextField(
+                  style: const TextStyle(color: Colors.black),
+                  controller: deathHourController,
+                  decoration: InputDecoration(labelText: 'Doctor Hour'),
                 ),
                 TextField(
                   controller: doctorNameController,
@@ -260,12 +246,44 @@ class _DeathFileFormState extends State<DeathFileForm> {
                   decoration: InputDecoration(labelText: 'Late Signs'),
                 ),
                 SizedBox(height: 16),
-                BlocBuilder<DeathFileCubit, DeathFileState>(
+                BlocConsumer<DeathFileCubit, DeathFileState>(
+                  listener: (context, state) {
+                    if (state.status == DeathFileStatus.success) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('done successfully'))) ;
+                    }
+                  },
                   builder: (context, state) {
                     return ElevatedButton(
                       onPressed: () async {
-                        print("ddddd") ;
-                        await BlocProvider.of<DeathFileCubit>(context).createDeathFile() ;
+                        print(deathHourController.text) ;
+                        print(fileDateController.text) ;
+                        print(deathDateController.text) ;
+                        await BlocProvider.of<DeathFileCubit>(context).createDeathFile(
+                          identityStatusController.text ,
+                          temperatureController.text ,
+                          deathLocationController.text ,
+                          deathDateController.text ,
+                          deathHourController.text ,
+                          doctorNameController.text ,
+                          fileDateController.text ,
+                          deathSeenController.text ,
+                          lastMinuteController.text ,
+                          lastDayController.text ,
+                          lastYearController.text ,
+                          reasonLastHourController.text ,
+                          anatomy ,
+                          autopsy ,
+                          normal ,
+                          nonNormal ,
+                          notSpecified ,
+                          liverMortiseLocationController.text ,
+                          liverMortiseImproveController.text ,
+                          liverMortiseColorController.text ,
+                          liverMortiseRemoved ,
+                          rigorMortiseLocationController.text ,
+                          dehydrationController.text ,
+                          lateSignsController.text
+                        ) ;
                       },
                       child: const Text('submit'),
                     );
